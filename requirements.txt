@@ -1,1 +1,4 @@
-
+Hra jede na python verzi 3.12
+Je potreba nainstalovat pygame na tuto verzi pythonu.
+Pro spusteni nainstalujte vsechny soubory, otevrete main.py a spustte.
+Ve hre je mozne se pohybovat (pomoci sipek) a utocit (pomoci mezerniku).

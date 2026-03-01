@@ -30,3 +30,8 @@ Hra by využívala Pygame.
 
 Veškeré informace napsané nahoře jsou stále ve fázi vývoje a konečný výsledek může jejich
 uplatnění změnit nebo kompletně odstranit - vše je tedy subject to change.
+
+Jak hru spustit?
+
+Pro spuštění nainstalujte všechny soubory, otevřete main.py a spusťte.
+Ve hře je možné se pohybovat (pomocí šipek) a útočit (pomocí mezerníku).

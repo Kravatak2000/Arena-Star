@@ -1,0 +1,18 @@
+[project]
+name = "Kravatak2000"
+version = "0.0.1"
+authors = [
+  { name="Kravatak2000", email="ondrasramek99@gmail.com" },
+]
+description = "I dont know what to really put in here"
+readme = "README.md"
+requires-python = ">=3.12"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+
+[project.urls]
+Homepage = "https://github.com/Kravatak2000/Arena-Star"

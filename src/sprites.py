@@ -15,76 +15,33 @@ class Spritesheet:
         sprite.blit(self.sheet, (0,0), (x, y, width, height))
         sprite.set_colorkey(Black)
         return sprite
-
-class Player(pygame.sprite.Sprite):
-    def __init__(self, game, x, y):
+    
+class Entity(pygame.sprite.Sprite):
+    def __init__(self, game, x, y, layer, groups, color, max_hp):
         self.game = game
-        self._layer = Player_Layer
-        self.groups = self.game.all_sprites
+        self._layer = layer
+        self.groups = groups
         pygame.sprite.Sprite.__init__(self, self.groups)
-
-        self.hp = 100
-        self.max_hp = 100
-
-        self.last_hit = 0
-        self.damage_cooldown = 500
 
         self.x = x * Tilesize
         self.y = y * Tilesize
         self.width = Tilesize
         self.height = Tilesize
 
-        self.x_change = 0
-        self.y_change = 0
-
-        self.facing = 'up'
-
         self.image = pygame.Surface([self.width, self.height])
-        self.image.fill(Light_blue)
+        self.image.fill(color)
 
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
 
-    def update(self):
-        self.movement()
-        self.enemy_collision()
-
-        self.rect.x += self.x_change
-        self.collision('x')
-        self.rect.y += self.y_change
-        self.collision('y')
-
         self.x_change = 0
         self.y_change = 0
 
-        if self.hp <= 0:
-            self.kill()
-            self.game.playing = False
-    
-    def movement(self):
-        keys = pygame.key.get_pressed()
-        direction = pygame.Vector2(0, 0)
-
-        if keys[pygame.K_LEFT]:
-            direction.x -= 1
-            self.facing = 'left'
-        if keys[pygame.K_RIGHT]:
-            direction.x += 1
-            self.facing = 'right'
-        if keys[pygame.K_UP]:
-            direction.y -= 1
-            self.facing = 'up'
-        if keys[pygame.K_DOWN]:
-            direction.y += 1
-            self.facing = 'down'
-
-        if direction.length() != 0:
-            direction = direction.normalize()
-
-        movement = direction * Player_Speed
-        self.x_change = movement.x
-        self.y_change = movement.y
+        self.max_hp = max_hp
+        self.hp = max_hp
+        
+        self.health_bar = Health_Bar(self, self.width, 5, 10)
 
     def collision(self, direction):
         if direction == "x":
@@ -102,30 +59,83 @@ class Player(pygame.sprite.Sprite):
                     self.rect.y = hits[0].rect.top - self.rect.height
                 if self.y_change < 0:
                     self.rect.y = hits[0].rect.bottom
+
+    def apply_movement(self):
+        self.rect.x += self.x_change
+        self.collision('x')
+        self.rect.y += self.y_change
+        self.collision('y')
+
+        self.x_change = 0
+        self.y_change = 0
     
+    def take_damage(self, amount):
+        self.hp -= amount
+        if self.hp <= 0:
+            self.hp = 0
+            self.kill()
+
+class Player(Entity):
+    def __init__(self, game, x, y):
+        super().__init__(game, x, y, Player_Layer, game.all_sprites, Light_blue, 100)
+        self.last_hit = 0
+        self.damage_cooldown = 500
+        self.facing = 'up'
+
+    def update(self):
+        self.movement()
+        self.enemy_collision()
+        self.apply_movement()
+
+        if self.hp <= 0:
+            self.kill()
+            self.game.playing = False
+
+    def movement(self):
+        keys = pygame.key.get_pressed()
+        direction = pygame.Vector2(0, 0)
+        if keys[pygame.K_a] or keys[pygame.K_LEFT]:
+            direction.x -= 1
+            self.facing = 'left'
+        if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
+            direction.x += 1
+            self.facing = 'right'
+        if keys[pygame.K_w] or keys[pygame.K_UP]:
+            direction.y -= 1
+            self.facing = 'up'
+        if keys[pygame.K_s] or keys[pygame.K_DOWN]:
+            direction.y += 1
+            self.facing = 'down'
+
+        if direction.length() != 0:
+            direction = direction.normalize()
+        movement = direction * Player_Speed
+        self.x_change = movement.x
+        self.y_change = movement.y
+
     def enemy_collision(self):
         hits = pygame.sprite.spritecollide(self, self.game.enemies, False)
         if hits:
             now = pygame.time.get_ticks()
             if now - self.last_hit > self.damage_cooldown:
-                self.hp -= 10
+                self.take_damage(10)
                 self.last_hit = now
-        
 
-class Player_Health():
-    def __init__(self, x, y, width, height, max_hp):
-        self.x = x
-        self.y = y
+class Health_Bar:
+    def __init__(self, owner, width, height, offset_y):
+        self.owner = owner
         self.width = width
         self.height = height
-        self.hp = max_hp
-        self.max_hp = max_hp
+        self.offset_y = offset_y
 
     def draw(self, surface):
-        ratio = self.hp / self.max_hp
+        ratio = self.owner.hp / self.owner.max_hp
+        
+        x = self.owner.rect.x
+        y = self.owner.rect.y - self.offset_y
 
-        pygame.draw.rect(surface, Red, (self.x, self.y, self.width, self.height))
-        pygame.draw.rect(surface, Green, (self.x, self.y, self.width * ratio, self.height))
+        pygame.draw.rect(surface, Red, (x, y, self.width, self.height))
+        pygame.draw.rect(surface, Green, (x, y, self.width * ratio, self.height))
 
 
 class Wall(pygame.sprite.Sprite):
@@ -148,29 +158,37 @@ class Wall(pygame.sprite.Sprite):
         self.rect.x = self.x
         self.rect.y = self.y
 
-class Basic_enemy(pygame.sprite.Sprite):
+class Basic_enemy(Entity):
     def __init__(self, game, x, y):
-        
-        self.game = game
-        self._layer = Enemy_Layer
-        self.groups = self.game.all_sprites, self.game.enemies
-        pygame.sprite.Sprite.__init__(self, self.groups)
+        super().__init__(game, x, y, Enemy_Layer, (game.all_sprites, game.enemies), Red, 50)
+        self.last_hit = 0
+        self.damage_cooldown = 200
+        self.facing = 'up'
+        self.speed = Basic_Enemey_Speed
 
-        self.x = x * Tilesize
-        self.y = y * Tilesize
-
-        self.width = Tilesize
-        self.height = Tilesize
-
-        self.image = pygame.Surface([self.width, self.height])
-        self.image.fill(Red)
-
-        self.rect = self.image.get_rect()
-        self.rect.x = self.x
-        self.rect.y = self.y
+    def damage_intake(self):
+        hits = pygame.sprite.spritecollide(self, self.game.attacks, False)
+        if hits:
+            now = pygame.time.get_ticks()
+            if now - self.last_hit > self.damage_cooldown:
+                self.take_damage(10) 
+                self.last_hit = now
     
+    def ai(self):
+        if self.rect.x < self.game.player.rect.x:
+            self.x_change = self.speed
+        elif self.rect.x > self.game.player.rect.x:
+            self.x_change = -self.speed
+
+        if self.rect.y < self.game.player.rect.y:
+            self.y_change = self.speed
+        elif self.rect.y > self.game.player.rect.y:
+            self.y_change = -self.speed
+
     def update(self):
-        pass
+        self.ai()
+        self.apply_movement()
+        self.damage_intake()
 
 
 
@@ -280,3 +298,20 @@ class Button:
                 return True
             return False
         return False
+    
+class Portal(pygame.sprite.Sprite):
+    def __init__(self, game, x, y):
+        self.game = game
+        self._layer = Wall_Layer # Or a Portal_Layer if you have one
+        self.groups = self.game.all_sprites, self.game.portals
+        pygame.sprite.Sprite.__init__(self, self.groups)
+
+        self.x = x * Tilesize
+        self.y = y * Tilesize
+        
+        self.image = pygame.Surface([Tilesize, Tilesize])
+        self.image.fill((100, 0, 255)) # Purple
+
+        self.rect = self.image.get_rect()
+        self.rect.x = self.x
+        self.rect.y = self.y

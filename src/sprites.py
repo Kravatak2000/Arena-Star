@@ -302,7 +302,7 @@ class Button:
 class Portal(pygame.sprite.Sprite):
     def __init__(self, game, x, y):
         self.game = game
-        self._layer = Wall_Layer # Or a Portal_Layer if you have one
+        self._layer = Wall_Layer
         self.groups = self.game.all_sprites, self.game.portals
         pygame.sprite.Sprite.__init__(self, self.groups)
 

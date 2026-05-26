@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>src package &#8212; src  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="src documentation" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="src-package">
+<h1>src package<a class="headerlink" href="#src-package" title="Link to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-src.config">
+<span id="src-config-module"></span><h2>src.config module<a class="headerlink" href="#module-src.config" title="Link to this heading">¶</a></h2>
+</section>
+<section id="src-main-module">
+<h2>src.main module<a class="headerlink" href="#src-main-module" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-src.sprites">
+<span id="src-sprites-module"></span><h2>src.sprites module<a class="headerlink" href="#module-src.sprites" title="Link to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.sprites.Basic_Attack">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.sprites.</span></span><span class="sig-name descname"><span class="pre">Basic_Attack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sprites.html#Basic_Attack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.sprites.Basic_Attack" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Sprite</span></code></p>
+<p>An offensive projectile or swing animation triggered by the player.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.sprites.Basic_Attack.animate">
+<span class="sig-name descname"><span class="pre">animate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sprites.html#Basic_Attack.animate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.sprites.Basic_Attack.animate" title="Link to this definition">¶</a></dt>
+<dd><p>Cycles through directional frames and deletes the attack instance once complete.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.sprites.Basic_Attack.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sprites.html#Basic_Attack.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.sprites.Basic_Attack.update" title="Link to this definition">¶</a></dt>
+<dd><p>Advances the state of the basic attack object.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.sprites.Basic_enemy">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.sprites.</span></span><span class="sig-name descname"><span class="pre">Basic_enemy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sprites.html#Basic_enemy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.sprites.Basic_enemy" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#src.sprites.Entity" title="src.sprites.Entity"><code class="xref py py-class docutils literal notranslate"><span class="pre">Entity</span></code></a></p>
+<p>An enemy unit that tracks the player’s position and targets them.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.sprites.Basic_enemy.ai">
+<span class="sig-name descname"><span class="pre">ai</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sprites.html#Basic_enemy.ai"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.sprites.Basic_enemy.ai" title="Link to this definition">¶</a></dt>
+<dd><p>Calculates pathing vectors to directly chase the current player location.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.sprites.Basic_enemy.damage_intake">
+<span class="sig-name descname"><span class="pre">damage_intake</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sprites.html#Basic_enemy.damage_intake"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.sprites.Basic_enemy.damage_intake" title="Link to this definition">¶</a></dt>
+<dd><p>Checks if the enemy is being hit by any player attacks and applies damage.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.sprites.Basic_enemy.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sprites.html#Basic_enemy.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.sprites.Basic_enemy.update" title="Link to this definition">¶</a></dt>
+<dd><p>Updates enemy state by executing AI logic, movement calculation, and damage checks.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.sprites.Button">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.sprites.</span></span><span class="sig-name descname"><span class="pre">Button</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fontsize</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sprites.html#Button"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.sprites.Button" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>An interactive UI button element containing dynamic text and collision testing.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.sprites.Button.is_pressed">
+<span class="sig-name descname"><span class="pre">is_pressed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pressed</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sprites.html#Button.is_pressed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.sprites.Button.is_pressed" title="Link to this definition">¶</a></dt>
+<dd><p>Determines if the mouse cursor overlaps the button and a mouse click is registered.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>position</strong> – Current coordinates of the mouse cursor (x, y).</p></li>
+<li><p><strong>pressed</strong> – Mouse click state tuple representing mouse buttons.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the button is hovered and clicked, otherwise False.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.sprites.Entity">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.sprites.</span></span><span class="sig-name descname"><span class="pre">Entity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">groups</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_hp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sprites.html#Entity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.sprites.Entity" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Sprite</span></code></p>
+<p>The base class for all moving and destructible characters in the game.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.sprites.Entity.apply_movement">
+<span class="sig-name descname"><span class="pre">apply_movement</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sprites.html#Entity.apply_movement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.sprites.Entity.apply_movement" title="Link to this definition">¶</a></dt>
+<dd><p>Applies velocity updates to the entity position and triggers collision checks.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.sprites.Entity.collision">
+<span class="sig-name descname"><span class="pre">collision</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">direction</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sprites.html#Entity.collision"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.sprites.Entity.collision" title="Link to this definition">¶</a></dt>
+<dd><p>Handles horizontal and vertical collision detection against solid wall blocks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>direction</strong> – The axis of movement to check (‘x’ or ‘y’).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.sprites.Entity.take_damage">
+<span class="sig-name descname"><span class="pre">take_damage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">amount</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sprites.html#Entity.take_damage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.sprites.Entity.take_damage" title="Link to this definition">¶</a></dt>
+<dd><p>Reduces the entity health and kills it if health drops to or below zero.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>amount</strong> – The total damage points to subtract from health.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.sprites.Health_Bar">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.sprites.</span></span><span class="sig-name descname"><span class="pre">Health_Bar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">owner</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset_y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sprites.html#Health_Bar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.sprites.Health_Bar" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A visual interface element tracking and rendering an entity’s health percentage.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.sprites.Health_Bar.draw">
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">surface</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sprites.html#Health_Bar.draw"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.sprites.Health_Bar.draw" title="Link to this definition">¶</a></dt>
+<dd><p>Renders the red and green health bars onto the given game display surface.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>surface</strong> – The Pygame display surface where the health bar should be drawn.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.sprites.Player">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.sprites.</span></span><span class="sig-name descname"><span class="pre">Player</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sprites.html#Player"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.sprites.Player" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#src.sprites.Entity" title="src.sprites.Entity"><code class="xref py py-class docutils literal notranslate"><span class="pre">Entity</span></code></a></p>
+<p>Represents the player character, controlling movement inputs and animations.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.sprites.Player.enemy_collision">
+<span class="sig-name descname"><span class="pre">enemy_collision</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sprites.html#Player.enemy_collision"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.sprites.Player.enemy_collision" title="Link to this definition">¶</a></dt>
+<dd><p>Detects if the player is touching an enemy and applies damage based on cooldowns.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.sprites.Player.movement">
+<span class="sig-name descname"><span class="pre">movement</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sprites.html#Player.movement"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.sprites.Player.movement" title="Link to this definition">¶</a></dt>
+<dd><p>Processes keyboard inputs to calculate player directional movement vectors.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.sprites.Player.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sprites.html#Player.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.sprites.Player.update" title="Link to this definition">¶</a></dt>
+<dd><p>Updates the state of the player including movement, collisions, and health.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.sprites.Portal">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.sprites.</span></span><span class="sig-name descname"><span class="pre">Portal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sprites.html#Portal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.sprites.Portal" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Sprite</span></code></p>
+<p>A level transition objective that transports the player to a randomized layout.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.sprites.Spritesheet">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.sprites.</span></span><span class="sig-name descname"><span class="pre">Spritesheet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sprites.html#Spritesheet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.sprites.Spritesheet" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Handles loading and cutting individual sprites out of a larger texture sheet.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.sprites.Spritesheet.get_sprite">
+<span class="sig-name descname"><span class="pre">get_sprite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sprites.html#Spritesheet.get_sprite"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.sprites.Spritesheet.get_sprite" title="Link to this definition">¶</a></dt>
+<dd><p>Extracts and returns a single sprite from the main spritesheet.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – The x-coordinate of the sprite on the sheet.</p></li>
+<li><p><strong>y</strong> – The y-coordinate of the sprite on the sheet.</p></li>
+<li><p><strong>width</strong> – The width of the sprite in pixels.</p></li>
+<li><p><strong>height</strong> – The height of the sprite in pixels.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new Pygame Surface containing the isolated sprite.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.sprites.Wall">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.sprites.</span></span><span class="sig-name descname"><span class="pre">Wall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">game</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/sprites.html#Wall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.sprites.Wall" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Sprite</span></code></p>
+<p>A static environmental obstacle block that prevents entity movement.</p>
+</dd></dl>
+
+</section>
+<section id="module-src">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src" title="Link to this heading">¶</a></h2>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">src</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">src package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-src.config">src.config module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#src-main-module">src.main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-src.sprites">src.sprites module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#src.sprites.Basic_Attack"><code class="docutils literal notranslate"><span class="pre">Basic_Attack</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#src.sprites.Basic_Attack.animate"><code class="docutils literal notranslate"><span class="pre">Basic_Attack.animate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#src.sprites.Basic_Attack.update"><code class="docutils literal notranslate"><span class="pre">Basic_Attack.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#src.sprites.Basic_enemy"><code class="docutils literal notranslate"><span class="pre">Basic_enemy</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#src.sprites.Basic_enemy.ai"><code class="docutils literal notranslate"><span class="pre">Basic_enemy.ai()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#src.sprites.Basic_enemy.damage_intake"><code class="docutils literal notranslate"><span class="pre">Basic_enemy.damage_intake()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#src.sprites.Basic_enemy.update"><code class="docutils literal notranslate"><span class="pre">Basic_enemy.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#src.sprites.Button"><code class="docutils literal notranslate"><span class="pre">Button</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#src.sprites.Button.is_pressed"><code class="docutils literal notranslate"><span class="pre">Button.is_pressed()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#src.sprites.Entity"><code class="docutils literal notranslate"><span class="pre">Entity</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#src.sprites.Entity.apply_movement"><code class="docutils literal notranslate"><span class="pre">Entity.apply_movement()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#src.sprites.Entity.collision"><code class="docutils literal notranslate"><span class="pre">Entity.collision()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#src.sprites.Entity.take_damage"><code class="docutils literal notranslate"><span class="pre">Entity.take_damage()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#src.sprites.Health_Bar"><code class="docutils literal notranslate"><span class="pre">Health_Bar</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#src.sprites.Health_Bar.draw"><code class="docutils literal notranslate"><span class="pre">Health_Bar.draw()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#src.sprites.Player"><code class="docutils literal notranslate"><span class="pre">Player</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#src.sprites.Player.enemy_collision"><code class="docutils literal notranslate"><span class="pre">Player.enemy_collision()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#src.sprites.Player.movement"><code class="docutils literal notranslate"><span class="pre">Player.movement()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#src.sprites.Player.update"><code class="docutils literal notranslate"><span class="pre">Player.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#src.sprites.Portal"><code class="docutils literal notranslate"><span class="pre">Portal</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#src.sprites.Spritesheet"><code class="docutils literal notranslate"><span class="pre">Spritesheet</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#src.sprites.Spritesheet.get_sprite"><code class="docutils literal notranslate"><span class="pre">Spritesheet.get_sprite()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#src.sprites.Wall"><code class="docutils literal notranslate"><span class="pre">Wall</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-src">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">src documentation</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2026, Author.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/src.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

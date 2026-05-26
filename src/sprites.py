@@ -4,6 +4,7 @@ import math
 import os
 
 class Spritesheet:
+    """Handles loading and cutting individual sprites out of a larger texture sheet."""
     def __init__(self, file):
         base_path = os.path.dirname(os.path.abspath(__file__))
         full_path = os.path.join(base_path, file)
@@ -11,12 +12,21 @@ class Spritesheet:
         self.sheet = pygame.image.load(full_path).convert()
 
     def get_sprite(self, x, y, width, height):
+        """Extracts and returns a single sprite from the main spritesheet.
+
+        :param x: The x-coordinate of the sprite on the sheet.
+        :param y: The y-coordinate of the sprite on the sheet.
+        :param width: The width of the sprite in pixels.
+        :param height: The height of the sprite in pixels.
+        :return: A new Pygame Surface containing the isolated sprite.
+        """
         sprite = pygame.Surface([width, height])
         sprite.blit(self.sheet, (0,0), (x, y, width, height))
         sprite.set_colorkey(Black)
         return sprite
     
 class Entity(pygame.sprite.Sprite):
+    """The base class for all moving and destructible characters in the game."""
     def __init__(self, game, x, y, layer, groups, color, max_hp):
         self.game = game
         self._layer = layer
@@ -44,6 +54,10 @@ class Entity(pygame.sprite.Sprite):
         self.health_bar = Health_Bar(self, self.width, 5, 10)
 
     def collision(self, direction):
+        """Handles horizontal and vertical collision detection against solid wall blocks.
+
+        :param direction: The axis of movement to check ('x' or 'y').
+        """
         if direction == "x":
             hits = pygame.sprite.spritecollide(self, self.game.blocks, False)
             if hits:
@@ -61,6 +75,7 @@ class Entity(pygame.sprite.Sprite):
                     self.rect.y = hits[0].rect.bottom
 
     def apply_movement(self):
+        """Applies velocity updates to the entity position and triggers collision checks."""
         self.rect.x += self.x_change
         self.collision('x')
         self.rect.y += self.y_change
@@ -70,12 +85,17 @@ class Entity(pygame.sprite.Sprite):
         self.y_change = 0
     
     def take_damage(self, amount):
+        """Reduces the entity health and kills it if health drops to or below zero.
+
+        :param amount: The total damage points to subtract from health.
+        """
         self.hp -= amount
         if self.hp <= 0:
             self.hp = 0
             self.kill()
 
 class Player(Entity):
+    """Represents the player character, controlling movement inputs and animations."""
     def __init__(self, game, x, y):
         super().__init__(game, x, y, Player_Layer, game.all_sprites, Light_blue, 100)
         self.last_hit = 0
@@ -83,6 +103,7 @@ class Player(Entity):
         self.facing = 'up'
 
     def update(self):
+        """Updates the state of the player including movement, collisions, and health."""
         self.movement()
         self.enemy_collision()
         self.apply_movement()
@@ -92,6 +113,7 @@ class Player(Entity):
             self.game.playing = False
 
     def movement(self):
+        """Processes keyboard inputs to calculate player directional movement vectors."""
         keys = pygame.key.get_pressed()
         direction = pygame.Vector2(0, 0)
         if keys[pygame.K_a] or keys[pygame.K_LEFT]:
@@ -114,6 +136,7 @@ class Player(Entity):
         self.y_change = movement.y
 
     def enemy_collision(self):
+        """Detects if the player is touching an enemy and applies damage based on cooldowns."""
         hits = pygame.sprite.spritecollide(self, self.game.enemies, False)
         if hits:
             now = pygame.time.get_ticks()
@@ -122,6 +145,7 @@ class Player(Entity):
                 self.last_hit = now
 
 class Health_Bar:
+    """A visual interface element tracking and rendering an entity's health percentage."""
     def __init__(self, owner, width, height, offset_y):
         self.owner = owner
         self.width = width
@@ -129,6 +153,10 @@ class Health_Bar:
         self.offset_y = offset_y
 
     def draw(self, surface):
+        """Renders the red and green health bars onto the given game display surface.
+
+        :param surface: The Pygame display surface where the health bar should be drawn.
+        """
         ratio = self.owner.hp / self.owner.max_hp
         
         x = self.owner.rect.x
@@ -139,6 +167,7 @@ class Health_Bar:
 
 
 class Wall(pygame.sprite.Sprite):
+    """A static environmental obstacle block that prevents entity movement."""
     def __init__(self, game, x, y):
         
         self.game = game
@@ -159,6 +188,7 @@ class Wall(pygame.sprite.Sprite):
         self.rect.y = self.y
 
 class Basic_enemy(Entity):
+    """An enemy unit that tracks the player's position and targets them."""
     def __init__(self, game, x, y):
         super().__init__(game, x, y, Enemy_Layer, (game.all_sprites, game.enemies), Red, 50)
         self.last_hit = 0
@@ -167,6 +197,7 @@ class Basic_enemy(Entity):
         self.speed = Basic_Enemey_Speed
 
     def damage_intake(self):
+        """Checks if the enemy is being hit by any player attacks and applies damage."""
         hits = pygame.sprite.spritecollide(self, self.game.attacks, False)
         if hits:
             now = pygame.time.get_ticks()
@@ -175,6 +206,7 @@ class Basic_enemy(Entity):
                 self.last_hit = now
     
     def ai(self):
+        """Calculates pathing vectors to directly chase the current player location."""
         if self.rect.x < self.game.player.rect.x:
             self.x_change = self.speed
         elif self.rect.x > self.game.player.rect.x:
@@ -186,6 +218,7 @@ class Basic_enemy(Entity):
             self.y_change = -self.speed
 
     def update(self):
+        """Updates enemy state by executing AI logic, movement calculation, and damage checks."""
         self.ai()
         self.apply_movement()
         self.damage_intake()
@@ -193,6 +226,7 @@ class Basic_enemy(Entity):
 
 
 class Basic_Attack(pygame.sprite.Sprite):
+    """An offensive projectile or swing animation triggered by the player."""
     def __init__(self, game, x, y):
 
         self.game = game
@@ -214,9 +248,11 @@ class Basic_Attack(pygame.sprite.Sprite):
         self.rect.y = self.y
 
     def update(self):
+        """Advances the state of the basic attack object."""
         self.animate()
 
     def animate(self):
+        """Cycles through directional frames and deletes the attack instance once complete."""
         direction = self.game.player.facing
 
         right_animations = [self.game.basic_attack_spritesheet.get_sprite(0, 64, self.width, self.height),
@@ -268,6 +304,7 @@ class Basic_Attack(pygame.sprite.Sprite):
                 self.kill()
 
 class Button:
+    """An interactive UI button element containing dynamic text and collision testing."""
     def __init__(self, x, y, width, height, font_color, background, content, fontsize):
         base_path = os.path.dirname(__file__)
         font_path = os.path.join(base_path, 'Assets/AGoblinAppears-o2aV.ttf')
@@ -293,6 +330,12 @@ class Button:
         self.image.blit(self.text, self.text_rect)
     
     def is_pressed(self, position, pressed):
+        """Determines if the mouse cursor overlaps the button and a mouse click is registered.
+
+        :param position: Current coordinates of the mouse cursor (x, y).
+        :param pressed: Mouse click state tuple representing mouse buttons.
+        :return: True if the button is hovered and clicked, otherwise False.
+        """
         if self.rect.collidepoint(position):
             if pressed[0]:
                 return True
@@ -300,9 +343,10 @@ class Button:
         return False
     
 class Portal(pygame.sprite.Sprite):
+    """A level transition objective that transports the player to a randomized layout."""
     def __init__(self, game, x, y):
         self.game = game
-        self._layer = Wall_Layer
+        self._layer = Wall_Layer # Or a Portal_Layer if you have one
         self.groups = self.game.all_sprites, self.game.portals
         pygame.sprite.Sprite.__init__(self, self.groups)
 

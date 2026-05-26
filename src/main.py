@@ -4,6 +4,7 @@ from sprites import *
 import sys
 
 class Game:
+    """The central manager of the game lifecycle, handling loop setups, inputs, and updates."""
     def __init__(self):
         pygame.init()
         self.screen = pygame.display.set_mode((Win_Width, Win_Height), pygame.SCALED | pygame.FULLSCREEN)
@@ -13,7 +14,6 @@ class Game:
         base_path = os.path.dirname(__file__)
         font_path = os.path.join(base_path, 'Assets/AGoblinAppears-o2aV.ttf')
         self.font = pygame.font.Font(font_path, 38)
-        self.small_font = pygame.font.Font(font_path, 22)
 
         self.basic_attack_spritesheet = Spritesheet('Assets/attack.png')
         
@@ -22,6 +22,10 @@ class Game:
         
 
     def create_map(self, map_data):
+        """Clears old assets and populates game groups based on string matrix maps.
+
+        :param map_data: Multidimensional list of characters representing structural layouts.
+        """
         for sprite in self.all_sprites:
             sprite.kill()
 
@@ -42,6 +46,7 @@ class Game:
                         self.player = Player(self, j, i)
 
     def new(self):
+        """Resets variables, instantiates new sprite layering setups, and loads index maps."""
         #new game starts
         self.playing = True
 
@@ -58,6 +63,7 @@ class Game:
         # self.player = Player(self, 10, 10)
 
     def events(self):
+        """Polls engine window callbacks, handling character attacks and general keystrokes."""
         #game loop events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -84,6 +90,7 @@ class Game:
 
 
     def update(self):
+        """Invokes group tick trackers and processes player portal collision transitions."""
         #game loop updaes
         self.all_sprites.update()
 
@@ -94,6 +101,7 @@ class Game:
             self.create_map(new_layout)
 
     def draw(self):
+        """Renders all updated entities and matching UI health meters to screen viewports."""
         self.screen.fill(Black)
         self.all_sprites.draw(self.screen)
         for sprite in self.all_sprites:
@@ -104,6 +112,7 @@ class Game:
         pygame.display.update()
 
     def main(self):
+        """Orchestrates standard structural ticks while the gameplay scene remains active."""
         #game loop
         while self.playing:
             self.events()
@@ -111,6 +120,7 @@ class Game:
             self.draw()
 
     def game_over(self):
+        """Halts runs upon player death and renders interactive restart/retry menus."""
         title = self.font.render('You have died', True, Red)
         title_rect = title.get_rect(x=80, y=150)
         # x = Win_width/2
@@ -141,56 +151,15 @@ class Game:
             self.clock.tick(Fps)
             pygame.display.update()
 
-    def help_screen(self):
-        helping = True
-        
-        back_button = Button(10, 10, 100, 50, White, Stone_gray, 'Back', 20)
-        
-
-        lines = [
-            "CONTROLS",
-            "",
-            "WASD / ARROWS: Move",
-            "SPACE: Attack",
-            "H: Self Harm",
-            "ESC: Quit Game"
-        ]
-
-        while helping:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    helping = False
-                    self.running = False
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
-                        helping = False
-
-            mouse_pos = pygame.mouse.get_pos()
-            mouse_pressed = pygame.mouse.get_pressed()
-
-            if back_button.is_pressed(mouse_pos, mouse_pressed):
-                helping = False
-
-            self.screen.blit(self.intro_background, (0, 0))
-
-            for i, text in enumerate(lines):
-                content = self.small_font.render(text, True, White)
-                self.screen.blit(content, (50, 100 + (i * 30)))
-            
-            self.screen.blit(back_button.image, back_button.rect)
-            
-            self.clock.tick(Fps)
-            pygame.display.update()
 
     def intro_screen(self):
+        """Displays the splash welcome viewport until the user clicks the play option button."""
         intro = True
 
         title = self.font.render('Arena Star', True, White)
         title_rect = title.get_rect(x=120, y=150)
 
         play_button = Button(250, 240, 125, 50, White, Stone_gray, 'Play', 30)
-
-        help_button = Button(250, 310, 125, 50, White, Stone_gray, 'Help', 30)
 
         while intro:
             for event in pygame.event.get():
@@ -209,13 +178,9 @@ class Game:
             if play_button.is_pressed(mouse_pos, mouse_pressed):
                 intro = False
 
-            if help_button.is_pressed(mouse_pos, mouse_pressed):
-                self.help_screen()
-
             self.screen.blit(self.intro_background, (0,0))
             self.screen.blit(title, title_rect)
             self.screen.blit(play_button.image, play_button.rect)
-            self.screen.blit(help_button.image, help_button.rect)
             self.clock.tick(Fps)
             pygame.display.update()
 
